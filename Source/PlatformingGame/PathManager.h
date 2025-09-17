@@ -33,4 +33,13 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void BindActor(AActor* ActorToBind);
 
+	UFUNCTION(BlueprintCallable, 
+		meta = (DisplayName = "Get Actor's Forward Rotation On Path", 
+			ToolTip="Returns the forward rotation of the closest point to the given actor's position."))
+	FVector GetForwardOnSpline(AActor* Actor);
+
+	UFUNCTION(BlueprintCallable, 
+		meta = (DisplayName = "Get Actor's Backward Rotation On Path", 
+			ToolTip = "Returns the backward rotation of the closest point to the given actor's position."))
+	FVector GetBackwardOnSpline(AActor* Actor);
 };
