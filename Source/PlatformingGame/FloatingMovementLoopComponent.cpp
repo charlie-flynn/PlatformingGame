@@ -33,18 +33,18 @@ void UFloatingMovementLoopComponent::TickComponent(float DeltaTime, ELevelTick T
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	timeSinceBirth += DeltaTime * FloatSpeed;
+	// timer moves faster the faster the floating is
+	floatingTimer += DeltaTime * FloatSpeed;
 
 	FTransform newTransform = owner->GetTransform();
 	FVector currentPosition = newTransform.GetTranslation();
 
-	
-
-
-	newTransform.SetTranslation(FVector(currentPosition.X, currentPosition.Y, currentPosition.Z + (sin(timeSinceBirth) * FloatRange * FloatSpeed)));
+	newTransform.SetTranslation(
+		FVector(currentPosition.X, 
+			currentPosition.Y, 
+			currentPosition.Z + (sin(floatingTimer) * FloatRange * FloatSpeed)));
+	// reason why we multiply it by range *and* speed is to make it so the range of movement is unaffected by the speed
 
 	owner->SetActorTransform(newTransform);
-
-	// ...
 }
 

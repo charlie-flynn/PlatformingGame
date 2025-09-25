@@ -26,7 +26,7 @@ public:
 private:
 	AActor* owner;
 
-	float timeSinceBirth;
+	float floatingTimer;
 
 protected:
 	// Called when the game starts
