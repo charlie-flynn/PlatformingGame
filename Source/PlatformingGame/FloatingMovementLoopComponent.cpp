@@ -43,7 +43,7 @@ void UFloatingMovementLoopComponent::TickComponent(float DeltaTime, ELevelTick T
 		FVector(currentPosition.X, 
 			currentPosition.Y, 
 			currentPosition.Z + (sin(floatingTimer) * FloatRange * FloatSpeed)));
-	// reason why we multiply it by range *and* speed is to make it so the range of movement is unaffected by the speed
+	// reason why we multiply it by range *and* speed is to make it so the range of movement is less affected by the speed
 
 	owner->SetActorTransform(newTransform);
 }

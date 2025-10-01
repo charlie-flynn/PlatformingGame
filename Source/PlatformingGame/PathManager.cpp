@@ -3,6 +3,7 @@
 
 #include "PathManager.h"
 #include "Components/SplineComponent.h"
+#include "PathBindComponent.h"
 
 // Sets default values
 APathManager::APathManager()
@@ -43,6 +44,11 @@ void APathManager::Tick(float DeltaTime)
 
 void APathManager::BindActor(AActor* ActorToBind)
 {
+	// if the actor has a pathbind component, set its PathManager to this instance
+	UPathBindComponent* pathBind = ActorToBind->GetComponentByClass<UPathBindComponent>();
+	if (pathBind)
+		pathBind->PathManager = this;
+		
 	ActorsToBind.Add(ActorToBind);
 }
 

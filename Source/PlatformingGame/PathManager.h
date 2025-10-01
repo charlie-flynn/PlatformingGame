@@ -30,7 +30,8 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UFUNCTION(BlueprintCallable)
+	UFUNCTION(BlueprintCallable, 
+		meta = (ToolTip="Binds an actor to the path. BPC_PathBindComponent isn't required, but gives the actor access to a pointer to this instance."))
 	void BindActor(AActor* ActorToBind);
 
 	UFUNCTION(BlueprintCallable, 
