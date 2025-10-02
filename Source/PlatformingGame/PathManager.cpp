@@ -52,15 +52,14 @@ void APathManager::BindActor(AActor* ActorToBind)
 	ActorsToBind.Add(ActorToBind);
 }
 
-FVector APathManager::GetForwardOnSpline(AActor* Actor)
+FRotator APathManager::GetForwardOnSpline(AActor* Actor)
 {
 	float inputKey = Path->FindInputKeyClosestToWorldLocation(Actor->GetTransform().GetLocation());
-	FVector direction = Path->GetRotationAtSplineInputKey(inputKey, ESplineCoordinateSpace::World).Euler();
-	FVector::DegreesToRadians(direction);
+	FRotator direction = Path->GetRotationAtSplineInputKey(inputKey, ESplineCoordinateSpace::World);
 	return direction;
 }
 
-FVector APathManager::GetBackwardOnSpline(AActor* Actor)
+FRotator APathManager::GetBackwardOnSpline(AActor* Actor)
 {
 	return GetForwardOnSpline(Actor) * -1;
 }
