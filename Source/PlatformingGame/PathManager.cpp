@@ -30,9 +30,10 @@ void APathManager::Tick(float DeltaTime)
 
 	for (AActor* actor : BoundActors)
 	{
-		FVector actorPosition = actor->GetActorLocation();
+		if (!actor)
+			continue;
 
-		
+		FVector actorPosition = actor->GetActorLocation();
 
 		float inputKey = Path->FindInputKeyClosestToWorldLocation(actorPosition);
 
