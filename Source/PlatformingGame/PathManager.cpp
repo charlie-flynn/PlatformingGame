@@ -31,7 +31,11 @@ void APathManager::Tick(float DeltaTime)
 	for (AActor* actor : BoundActors)
 	{
 		if (!actor)
-			continue;
+		{
+			BoundActors.Remove(actor);
+			break;
+		}
+
 
 		FVector actorPosition = actor->GetActorLocation();
 
