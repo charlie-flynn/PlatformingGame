@@ -20,7 +20,7 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	USplineComponent* Path;
 
-	TArray<AActor*> ActorsToBind;
+	TArray<AActor*> BoundActors;
 
 protected:
 	// Called when the game starts or when spawned

@@ -26,19 +26,21 @@ void APathManager::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (ActorsToBind.IsEmpty()) return;
+	if (BoundActors.IsEmpty()) return;
 
-	for (AActor* actor : ActorsToBind)
+	for (AActor* actor : BoundActors)
 	{
-		FTransform actorTransform = actor->GetTransform();
+		FVector actorPosition = actor->GetActorLocation();
 
-		float inputKey = Path->FindInputKeyClosestToWorldLocation(actorTransform.GetLocation());
+		
+
+		float inputKey = Path->FindInputKeyClosestToWorldLocation(actorPosition);
 
 		FVector positionOnSpline = Path->GetLocationAtSplineInputKey(inputKey, ESplineCoordinateSpace::World);
 
-		actorTransform.SetLocation(FVector(positionOnSpline.X, positionOnSpline.Y, actorTransform.GetLocation().Z));
+		actorPosition = FVector(positionOnSpline.X, positionOnSpline.Y, actorPosition.Z);
 
-		actor->SetActorTransform(actorTransform, false, NULL, ETeleportType::TeleportPhysics);
+		actor->SetActorLocation(actorPosition, false, nullptr, ETeleportType::TeleportPhysics);
 	}
 }
 
@@ -49,7 +51,7 @@ void APathManager::BindActor(AActor* ActorToBind)
 	if (pathBind)
 		pathBind->PathManager = this;
 		
-	ActorsToBind.Add(ActorToBind);
+	BoundActors.Add(ActorToBind);
 }
 
 FRotator APathManager::GetForwardOnSpline(AActor* Actor)
