@@ -28,24 +28,23 @@ void APathManager::Tick(float DeltaTime)
 
 	if (BoundActors.IsEmpty()) return;
 
-	for (AActor* actor : BoundActors)
+	
+
+	for (int i = 0; i < BoundActors.Num(); i++)
 	{
-		if (!actor)
+		if (!IsValid(BoundActors[i]))
 		{
-			BoundActors.Remove(actor);
+			BoundActors.RemoveAt(i);
 			break;
 		}
 
-
-		FVector actorPosition = actor->GetActorLocation();
-
+		// get the input key closest to the actor's world position, then set the actor's x & y coordinates to the position on the spline at the given input key
+		FVector actorPosition = BoundActors[i]->GetActorLocation();
 		float inputKey = Path->FindInputKeyClosestToWorldLocation(actorPosition);
 
 		FVector positionOnSpline = Path->GetLocationAtSplineInputKey(inputKey, ESplineCoordinateSpace::World);
-
 		actorPosition = FVector(positionOnSpline.X, positionOnSpline.Y, actorPosition.Z);
-
-		actor->SetActorLocation(actorPosition, false, nullptr, ETeleportType::TeleportPhysics);
+		BoundActors[i]->SetActorLocation(actorPosition, false, nullptr, ETeleportType::TeleportPhysics);
 	}
 }
 
